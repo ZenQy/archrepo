@@ -49,6 +49,6 @@ package() {
   mv "$pkgdir/usr/share/${_pkgname}/web/index.html" \
      "$pkgdir/usr/share/${_pkgname}/web/index.original.html"
 
-  cp -r "$srcdir/transmission-web-control-1.6.1-update1/src/*" \
+  cp -r "$srcdir/transmission-web-control-1.6.1-update1/src/"* \
         "$pkgdir/usr/share/${_pkgname}/web/"
 }
