@@ -1,13 +1,13 @@
 pkgname=transmission-twc
 _pkgname=transmission
 pkgver=3.00
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url="http://www.transmissionbt.com/"
 license=(MIT)
 pkgdesc='Fast, easy, and free BitTorrent client (CLI tools, daemon and web client)'
 depends=(curl libevent systemd)
-makedepends=(intltool curl libevent systemd)
+makedepends=(intltool)
 conflicts=('transmission-cli')
 source=(https://github.com/transmission/transmission-releases/raw/master/${_pkgname}-${pkgver}.tar.xz
         https://github.com/ronggang/transmission-web-control/archive/v1.6.1-update1.tar.gz
@@ -49,6 +49,6 @@ package() {
   mv "$pkgdir/usr/share/${_pkgname}/web/index.html" \
      "$pkgdir/usr/share/${_pkgname}/web/index.original.html"
 
-  cp -r "$srcdir/transmission-web-control-1.6.1-update1/src/" \
+  cp -r "$srcdir/transmission-web-control-1.6.1-update1/src/*" \
         "$pkgdir/usr/share/${_pkgname}/web/"
 }
