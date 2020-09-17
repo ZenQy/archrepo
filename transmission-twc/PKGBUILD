@@ -1,0 +1,50 @@
+pkgname=transmission-twc
+_pkgname=transmission
+pkgver=3.00
+pkgrel=2
+arch=(x86_64)
+url="http://www.transmissionbt.com/"
+license=(MIT)
+pkgdesc='Fast, easy, and free BitTorrent client (CLI tools, daemon and web client)'
+depends=(curl libevent systemd)
+makedepends=(intltool curl libevent systemd)
+conflicts=('transmission-cli')
+source=(https://github.com/transmission/transmission-releases/raw/master/${_pkgname}-${pkgver}.tar.xz
+        https://github.com/ronggang/transmission-web-control/archive/v1.6.1-update1.tar.gz
+        transmission-twc.tmpfiles)
+sha256sums=('9144652fe742f7f7dd6657716e378da60b751aaeda8bef8344b3eefc4db255f2'
+            'e6f43fb69cad6424cdad5e1ac9230ca5d7f88a85b94c8364d51de965166560c7'
+            'f609552f03a5d04458bd7e0eaccfe7c56db0baa50670d42e5debd9f8713793fa')
+
+prepare() {
+  cd ${_pkgname}-$pkgver
+
+  sed -i '/s/User=transmission/User=http/g' daemon/transmission-daemon.service
+
+  rm -f m4/glib-gettext.m4
+  autoreconf -fi
+}
+
+build() {
+  cd ${_pkgname}-$pkgver
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd ${_pkgname}-$pkgver
+
+  for dir in daemon web utils; do
+    make -C "$dir" DESTDIR="$pkgdir" install
+  done
+
+  install -Dm644 daemon/transmission-daemon.service \
+    "$pkgdir/usr/lib/systemd/system/${_pkgname}.service"
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/${_pkgname}/COPYING"
+
+  mv "$pkgdir/usr/share/${_pkgname}/web/index.html" \
+     "$pkgdir/usr/share/${_pkgname}/web/index.original.html"
+
+  cp -r "$srcdir/transmission-web-control-1.6.1-update1/src/" \
+        "$pkgdir/usr/share/${_pkgname}/web/"
+}

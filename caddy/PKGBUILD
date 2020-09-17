@@ -1,0 +1,29 @@
+pkgname=caddy
+pkgver=2.1.1
+pkgrel=3
+pkgdesc="Fast, multi-platform web server with automatic HTTPS"
+arch=('x86_64')
+url="https://caddyserver.com"
+license=('Apache')
+backup=('etc/caddy/Caddyfile')
+
+source=("https://github.com/caddyserver/caddy/releases/download/v${pkgver}/caddy_${pkgver}_linux_amd64.tar.gz"
+        index.html
+        caddy.service
+        caddy.tmpfiles
+        Caddyfile)
+
+sha256sums=('b136df4d25d4c3f7d5efa55c13f1eb586c22cc8bf595641d9b7f9b7cf8fbf401'
+            'f79facc440ace861334e7f3bb4c27a233f06b54b83634e09fcf458c79194a0ec'
+            'd4eb6211c1045c7482e6ac85f1354d09fb6aebef47756f8e2d3fad82d4c844ff'
+            '7711a7da9f0c81772cde7a5fa78923e4882f533597cd667c1cfe4a9efc4fe386'
+            '4fae65f9c166b6929bcce25520902916c3fe437e2cf87712927e357b89bcd6cc')
+
+package() {
+  install -Dm 755 caddy "$pkgdir/usr/bin/caddy"
+  install -Dm 644 "${srcdir}/caddy.service" -t "${pkgdir}/usr/lib/systemd/system"
+  install -Dm 644 "${srcdir}/caddy.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/caddy.conf"
+  install -Dm 644 "${srcdir}/Caddyfile" "${pkgdir}/etc/caddy/Caddyfile"
+  install -Dm 644 "${srcdir}/index.html" "${pkgdir}/usr/share/caddy/index.html"
+}
+

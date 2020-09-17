@@ -1,0 +1,2 @@
+d /var/lib/transmission 0750 http http
+d /var/log/transmission 0750 http http
