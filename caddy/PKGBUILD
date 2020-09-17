@@ -18,7 +18,7 @@ sha256sums=('b136df4d25d4c3f7d5efa55c13f1eb586c22cc8bf595641d9b7f9b7cf8fbf401'
             'f79facc440ace861334e7f3bb4c27a233f06b54b83634e09fcf458c79194a0ec'
             '5d3469563aeecaa0519bec826ad6fd3dcd5ddcf8a06b2837824be32b8a7c5540'
             '1de8079e97c172d30a731f9f3a2da94fcd6d41a7aadd8da3589f9a7a00a10bb1'
-            '5d3469563aeecaa0519bec826ad6fd3dcd5ddcf8a06b2837824be32b8a7c5540'
+            'e69ae147c6b7eb92fe428c29c3ed96bfd4ab62d5fb7de3bf65ad7ffccde66df6'
             '4fae65f9c166b6929bcce25520902916c3fe437e2cf87712927e357b89bcd6cc')
 
 package() {
