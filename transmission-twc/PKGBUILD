@@ -11,15 +11,15 @@ makedepends=(intltool curl libevent systemd)
 conflicts=('transmission-cli')
 source=(https://github.com/transmission/transmission-releases/raw/master/${_pkgname}-${pkgver}.tar.xz
         https://github.com/ronggang/transmission-web-control/archive/v1.6.1-update1.tar.gz
-        transmission-twc.tmpfiles)
+        transmission-twc.tmpfiles
+        transmission-twc.sysusers)
 sha256sums=('9144652fe742f7f7dd6657716e378da60b751aaeda8bef8344b3eefc4db255f2'
             'e6f43fb69cad6424cdad5e1ac9230ca5d7f88a85b94c8364d51de965166560c7'
-            'f609552f03a5d04458bd7e0eaccfe7c56db0baa50670d42e5debd9f8713793fa')
+            '41a6de86eeaf9c8ddba8562c061e5e6cc87ef023178557b17c29b5718736a6c9'
+            'f99f147389e7a512d0d29bd2baf9d44d2c0dac3d981bf5981fcab57695077b17')
 
 prepare() {
   cd ${_pkgname}-$pkgver
-
-  sed -i '/s/User=transmission/User=http/g' daemon/transmission-daemon.service
 
   rm -f m4/glib-gettext.m4
   autoreconf -fi
@@ -41,6 +41,10 @@ package() {
   install -Dm644 daemon/transmission-daemon.service \
     "$pkgdir/usr/lib/systemd/system/${_pkgname}.service"
   install -Dm644 COPYING "$pkgdir/usr/share/licenses/${_pkgname}/COPYING"
+  install -Dm644 "$srcdir/${pkgname}.sysusers" \
+    "$pkgdir/usr/lib/sysusers.d/transmission.conf"
+  install -Dm644 "$srcdir/${pkgname}.tmpfiles" \
+    "$pkgdir/usr/lib/tmpfiles.d/transmission.conf"
 
   mv "$pkgdir/usr/share/${_pkgname}/web/index.html" \
      "$pkgdir/usr/share/${_pkgname}/web/index.original.html"

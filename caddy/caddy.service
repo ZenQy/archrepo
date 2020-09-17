@@ -1,31 +1,19 @@
 [Unit]
-Description=Caddy Web Server
+Description=Caddy
 Documentation=https://caddyserver.com/docs/
 After=network.target
 
 [Service]
-User=http
-Group=http
-ExecStart=/usr/bin/caddy run --config /etc/caddy/Caddyfile --resume --environ
+User=caddy
+Group=caddy
+ExecStart=/usr/bin/caddy run --environ --config /etc/caddy/Caddyfile
 ExecReload=/usr/bin/caddy reload --config /etc/caddy/Caddyfile
 TimeoutStopSec=5s
 LimitNOFILE=1048576
 LimitNPROC=512
-
-# Hardening options
 PrivateTmp=true
-ProtectSystem=strict
-PrivateDevices=true
-ProtectHome=true
-ReadWritePaths=/var/lib/caddy /var/log/caddy
+ProtectSystem=full
 AmbientCapabilities=CAP_NET_BIND_SERVICE
-CapabilityBoundingSet=CAP_NET_BIND_SERVICE
-NoNewPrivileges=true
-ProtectKernelTunables=true
-ProtectKernelModules=true
-ProtectControlGroups=true
-LockPersonality=true
-
 
 [Install]
 WantedBy=multi-user.target
