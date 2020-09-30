@@ -5,14 +5,8 @@ arch=(any)
 url="https://github.com/CzBiX/qb-web/"
 license=(GPL3)
 pkgdesc='A qBittorrent Web UI, write in TypeScript+Vue'
-depends=()
-makedepends=(unzip)
 source=(https://github.com/CzBiX/${pkgname}/releases/download/nightly-20200924/${pkgname}-nightly-${pkgver}.zip)
 sha256sums=('fcf9f39769ebdeeefa1246a8cc443cadb020cd97e3bb53dd00ed3b13911d2cf7')
-
-prepare() {
-  unzip ${pkgname}-nightly-${pkgver}.zip
-}
 
 package() {
   mkdir -p "$pkgdir/usr/share/${pkgname}/web/"
