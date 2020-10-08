@@ -5,7 +5,7 @@ arch=(any)
 url="https://github.com/CzBiX/qb-web/"
 license=(GPL3)
 pkgdesc='A qBittorrent Web UI, write in TypeScript+Vue'
-source=(https://github.com/CzBiX/${pkgname}/releases/download/nightly-20200924/${pkgname}-nightly-${pkgver}.zip)
+source=(https://github.com/CzBiX/${pkgname}/releases/download/nightly-${pkgver}/${pkgname}-nightly-${pkgver}.zip)
 sha256sums=('a4d0570e6451644ccab503f6c014c0b309b3f444147d1c0ee7592e42ec054e44')
 
 package() {
