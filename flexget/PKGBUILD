@@ -1,0 +1,71 @@
+# Maintainer: ZneQy <zenqy.qin@gmail.com>
+
+pkgname=flexget
+_pkgname=FlexGet
+pkgver=3.1.77
+pkgrel=1
+pkgdesc='FlexGet is a multipurpose automation tool for content like torrents, nzbs, podcasts, comics, series, movies, etc.'
+arch=('any')
+license=('MIT')
+url='https://github.com/Flexget/Flexget'
+depends=(
+  # 依赖需要再验证
+  'python'
+  'python-beautifulsoup4'
+  'python-cherrypy'
+  'python-colorclass'
+  'python-feedparser'
+  'python-flask'
+  'python-sqlalchemy'
+  'python-yaml'
+  'python-jsonschema'
+  'python-zc.lockfile'
+  'python-werkzeug'
+  'python-aniso8601'
+  'python-cheroot'
+  'python-click'
+  'python-jinja'
+  'python-itsdangerous'
+  'python-markupsafe'
+  'python-more-itertools'
+  'python-portend'
+  'python-pyparsing'
+  'python-pyrss2gen'
+  'python-soupsieve'
+  'python-tempora'
+  'python-terminaltables'
+  'python-progressbar'
+
+  ## AUR
+  'python-apscheduler'
+  'python-guessit'
+  'python-loguru'         
+  'python-zxcvbn'
+)
+
+makedepends=(
+  'python-setuptools'
+)
+
+source=("https://github.com/Flexget/Flexget/releases/download/v${pkgver}/FlexGet-${pkgver}.tar.gz" 'flexget.service')
+sha256sums=('7c0b44604ac9b9896849fb3090ab7406d0c9b33f3fbe26762aa97ef6a80daab4'
+            'c2fd3a0aa1ad0b8f2cf954481eb971966cb190206f81b8c24c3930fbb8ecfabe')
+ 
+prepare() {
+  cd "${_pkgname}"-"${pkgver}"
+  sed -i 's/==.*//g' requirements.txt
+  sed -i 's/<=.*//g' requirements.txt
+  sed -i 's/~=.*//g' requirements.txt
+
+  # zxcvbn-python has been renamed zxcvbn
+  sed -i 's/zxcvbn-python/zxcvbn/' requirements.txt
+  # Python distribution of progressbar v3.x.x is named progressbar2
+  sed -i 's/progressbar/progressbar2/' requirements.txt
+}
+ 
+package() {
+  cd "${_pkgname}"-"${pkgver}"
+  python setup.py install --root="$pkgdir" --optimize=1
+  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  install -Dm644 ../flexget.service "${pkgdir}"/usr/lib/systemd/user/flexget.service
+}
