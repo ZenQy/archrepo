@@ -1,6 +1,6 @@
 pkgname=caddy
-pkgver=2.1.1
-pkgrel=3
+pkgver=2.2.1
+pkgrel=1
 pkgdesc="Fast, multi-platform web server with automatic HTTPS"
 arch=('x86_64')
 url="https://caddyserver.com"
@@ -8,18 +8,19 @@ license=('Apache')
 backup=('etc/caddy/Caddyfile')
 
 source=("https://github.com/caddyserver/caddy/releases/download/v${pkgver}/caddy_${pkgver}_linux_amd64.tar.gz"
-        index.html
+        Caddyfile
         caddy.service
-        caddy.tmpfiles
         caddy.sysusers
-        Caddyfile)
+        caddy.tmpfiles
+        index.html)
 
-sha256sums=('b136df4d25d4c3f7d5efa55c13f1eb586c22cc8bf595641d9b7f9b7cf8fbf401'
-            'f79facc440ace861334e7f3bb4c27a233f06b54b83634e09fcf458c79194a0ec'
-            '5d3469563aeecaa0519bec826ad6fd3dcd5ddcf8a06b2837824be32b8a7c5540'
-            '1de8079e97c172d30a731f9f3a2da94fcd6d41a7aadd8da3589f9a7a00a10bb1'
-            'e69ae147c6b7eb92fe428c29c3ed96bfd4ab62d5fb7de3bf65ad7ffccde66df6'
-            '4fae65f9c166b6929bcce25520902916c3fe437e2cf87712927e357b89bcd6cc')
+sha512sums=('66a21e0643fd2538ffe88ab93cb4a158b94873c1ce7494543a8355c8a3492d5fa43f4fa030dfc9e9833d15fe04f010063c61cb3f04ad5ac6bcff80396f928a08'
+            'ac016fd33263d424d478a7cbb37b3d321064e88ddad49e88a3cb0f63271c44b2a4aa98b71b1c52510b64c75344481c5057d11d06bd099db96a68ad216df6062b'
+            '0551332327a525d7e96c679ae1e32685767b99e922725e19c0bf3d66211d573bd880626b5508ec8f3a8ebe765edc970f526a50e4b78fad8e510909ef125a1a74'
+            'a9b3e4af421a4be0193d9a452cdf6b66b8f03fbf8bce3de4454a2ee70556c156c458b12a141fefb3e15a2acbb0f3acedc09cbccbecf82aa8916b9b6d799ec066'
+            '41d6b82ab99ca729d5b48d77d4557f3c5368b63847054216018547ea40e0cc302bc36668e9a57ba63e8983205febffee18eae1c306a665365a13da54010cd415'
+            'ae341e195a37718ac3f5ff9509fa7fbc1697c86860bbff4c1bf19a2f258cf26a272b62745f1b7010058581580374ad38851e2f5001b61b16089dd0170f906d50'
+            'd35298eff74d7cf5492d3e22f6a5be2d90b63ec305e9f573921fb951f4cc901784de15b76b5a56f7981715d5b939fe2fe4afa8e2f4fc8935a8a24b13502460b7')
 
 package() {
   install -Dm 755 caddy "$pkgdir/usr/bin/caddy"
