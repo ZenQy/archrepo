@@ -1,4 +1,4 @@
-debug: true
+debug: false
 httpport: 8080
 github:
   admin: "8230646" #管理员 GitHub ID，复制自己GitHub头像图片地址，/[ID].png 多个用英文逗号隔开

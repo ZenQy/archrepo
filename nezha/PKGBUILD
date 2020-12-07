@@ -6,11 +6,20 @@ pkgdesc="便携服务器状态监控面板"
 arch=('x86_64')
 url="https://github.com/naiba/nezha"
 license=('custom')
+# depends=('sqlite')
 makedepends=('go')
 
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
+        "client.conf"
+        "config.yaml"
+        "nezhac.service"
+        "nezhas.service")
 
-sha512sums=('SKIP')
+sha256sums=('9637891db51fbba88f2798b9241f22846e75af0ef35c379714392b58db5a2857'
+            '59c065c5b549c97d74968aeebad1e79b47d57b05a9609b8c465a23282c417533'
+            '82720ab0b82326969665e8e022a91bb5d8a1d10cd77ec4b5f3cf1d53da8ecccd'
+            '3f26ab044356db12826eb7b6d4579c309cfc520364530a3af6918f40e5f739c6'
+            '1058779df420545c684ce46fcb577fb843056825aa311576e215bfb383c87da3')
 
 prepare(){
   cd "${pkgbase}-${pkgver}"
