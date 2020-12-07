@@ -24,8 +24,6 @@ build() {
   go build -o nezhac cmd/agent/main.go
 }
 
-
-
 package_nezhac() {
   conflicts=('nezha')
   backup=('etc/nezha/client.conf')
@@ -44,5 +42,6 @@ package_nezhas() {
   install -Dm 755 nezhas "$pkgdir/usr/bin/nezhas"
   install -Dm 644 "${srcdir}/config.yaml" "${pkgdir}/etc/nezha/config.yaml"
   install -Dm644 "$srcdir/nezhas.service" "$pkgdir/usr/lib/systemd/system/nezhas.service"
+  cp -r "${srcdir}/resource" "$pkgdir/usr/share/nezha"
 }
 
