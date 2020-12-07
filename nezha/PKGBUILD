@@ -1,0 +1,48 @@
+pkgbase='nezha'
+pkgname=('nezhac' 'nezhas')
+pkgver=0.1.9
+pkgrel=1
+pkgdesc="便携服务器状态监控面板"
+arch=('x86_64')
+url="https://github.com/naiba/nezha"
+license=('custom')
+makedepends=('go')
+
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
+
+sha512sums=('SKIP')
+
+prepare(){
+  cd "${pkgbase}-${pkgver}"
+  sed -i 's/data\//\/etc\/nezha\//g' cmd/dashboard/main.go
+  sed -i 's/resource\//\/usr\/share\/nezha\//g' cmd/dashboard/controller/controller.go
+}
+
+build() {
+  cd "${pkgbase}-${pkgver}"
+  go build -o nezhas cmd/dashboard/main.go
+  go build -o nezhac cmd/agent/main.go
+}
+
+
+
+package_nezhac() {
+  conflicts=('nezha')
+  backup=('etc/nezha/client.conf')
+
+  cd "${pkgbase}-${pkgver}"
+  install -Dm 755 nezhac "$pkgdir/usr/bin/nezhac"
+  install -Dm 644 "${srcdir}/client.conf" "${pkgdir}/etc/nezha/client.conf"
+  install -Dm644 "$srcdir/nezhac.service" "$pkgdir/usr/lib/systemd/system/nezhac.service"
+}
+
+package_nezhas() {
+  conflicts=('nezha')
+  backup=('etc/nezha/config.yaml')
+
+  cd "${pkgbase}-${pkgver}"
+  install -Dm 755 nezhas "$pkgdir/usr/bin/nezhas"
+  install -Dm 644 "${srcdir}/config.yaml" "${pkgdir}/etc/nezha/config.yaml"
+  install -Dm644 "$srcdir/nezhas.service" "$pkgdir/usr/lib/systemd/system/nezhas.service"
+}
+
