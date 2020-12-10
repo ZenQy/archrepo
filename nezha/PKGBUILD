@@ -1,12 +1,14 @@
+# Maintainer: ZenQy <zenqy.qin@gmail.com>
+
 pkgbase='nezha'
 pkgname=('nezhac' 'nezhas')
 pkgver=0.1.9
-pkgrel=1
+pkgrel=3
 pkgdesc="便携服务器状态监控面板"
 arch=('x86_64')
 url="https://github.com/naiba/nezha"
-license=('custom')
-# depends=('sqlite')
+# license=('custom')
+depends=('glibc')
 makedepends=('go')
 
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
@@ -16,10 +18,10 @@ source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
         "nezhas.service")
 
 sha256sums=('9637891db51fbba88f2798b9241f22846e75af0ef35c379714392b58db5a2857'
-            '59c065c5b549c97d74968aeebad1e79b47d57b05a9609b8c465a23282c417533'
-            '82720ab0b82326969665e8e022a91bb5d8a1d10cd77ec4b5f3cf1d53da8ecccd'
-            '3f26ab044356db12826eb7b6d4579c309cfc520364530a3af6918f40e5f739c6'
-            '1058779df420545c684ce46fcb577fb843056825aa311576e215bfb383c87da3')
+            '366317fb940ab89e3122c8753636219dba018128b7b880a83fabff05f33ab363'
+            '00d59d5b2183f02b223cb4c985893017983df09bd33eed73487d58fedfcb8132'
+            '44981c063c7b868fbd859df9570f56ebbc9f0d0a3e3d3856e2a68486086eb7ac'
+            '1d4c6957c5582588e60b08c20e2b3996af20b8eea63980b4b36cf81b657aaac3')
 
 prepare(){
   cd "${pkgbase}-${pkgver}"
@@ -29,28 +31,31 @@ prepare(){
 
 build() {
   cd "${pkgbase}-${pkgver}"
+  export GOPROXY="https://goproxy.cn,direct"
+  export CGO_CFLAGS="${CFLAGS} -Wno-return-local-addr"
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_LDFLAGS="${LDFLAGS}"
+  export GOFLAGS="-buildmode=pie"
   go build -o nezhas cmd/dashboard/main.go
   go build -o nezhac cmd/agent/main.go
 }
 
 package_nezhac() {
-  conflicts=('nezha')
   backup=('etc/nezha/client.conf')
 
-  cd "${pkgbase}-${pkgver}"
-  install -Dm 755 nezhac "$pkgdir/usr/bin/nezhac"
-  install -Dm 644 "${srcdir}/client.conf" "${pkgdir}/etc/nezha/client.conf"
-  install -Dm644 "$srcdir/nezhac.service" "$pkgdir/usr/lib/systemd/system/nezhac.service"
+  install -Dm 755 "${pkgbase}-${pkgver}/nezhac" "${pkgdir}/usr/bin/nezhac"
+  install -Dm 644 client.conf "${pkgdir}/etc/nezha/client.conf"
+  install -Dm 644 nezhac.service "${pkgdir}/usr/lib/systemd/system/nezhac.service"
 }
 
 package_nezhas() {
-  conflicts=('nezha')
   backup=('etc/nezha/config.yaml')
 
-  cd "${pkgbase}-${pkgver}"
-  install -Dm 755 nezhas "$pkgdir/usr/bin/nezhas"
-  install -Dm 644 "${srcdir}/config.yaml" "${pkgdir}/etc/nezha/config.yaml"
-  install -Dm644 "$srcdir/nezhas.service" "$pkgdir/usr/lib/systemd/system/nezhas.service"
-  cp -r "${srcdir}/resource" "$pkgdir/usr/share/nezha"
+  install -Dm 755 "${pkgbase}-${pkgver}/nezhas" "${pkgdir}/usr/bin/nezhas"
+  install -Dm 644 config.yaml "${pkgdir}/etc/nezha/config.yaml"
+  install -Dm 644 nezhas.service "${pkgdir}/usr/lib/systemd/system/nezhas.service"
+  mkdir -p "${pkgdir}/usr/share/nezha"
+  ls "${pkgbase}-${pkgver}"
+  cp -r "${pkgbase}-${pkgver}/resource/"* "${pkgdir}/usr/share/nezha"
 }
 
