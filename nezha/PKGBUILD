@@ -7,7 +7,7 @@ pkgrel=1
 pkgdesc="便携服务器状态监控面板"
 arch=('x86_64')
 url="https://github.com/naiba/nezha"
-# license=('custom')
+license=('unknown')
 depends=('glibc')
 makedepends=('go')
 
