@@ -2,8 +2,8 @@
 
 pkgbase='nezha'
 pkgname=('nezhac' 'nezhas')
-pkgver=0.1.9
-pkgrel=3
+pkgver=0.1.11
+pkgrel=1
 pkgdesc="便携服务器状态监控面板"
 arch=('x86_64')
 url="https://github.com/naiba/nezha"
@@ -17,7 +17,7 @@ source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
         "nezhac.service"
         "nezhas.service")
 
-sha256sums=('9637891db51fbba88f2798b9241f22846e75af0ef35c379714392b58db5a2857'
+sha256sums=('e303c832575713e3bd60688c5659a35306856bc2858270abbd6cb129e77cc1f8'
             '366317fb940ab89e3122c8753636219dba018128b7b880a83fabff05f33ab363'
             '00d59d5b2183f02b223cb4c985893017983df09bd33eed73487d58fedfcb8132'
             '44981c063c7b868fbd859df9570f56ebbc9f0d0a3e3d3856e2a68486086eb7ac'
@@ -37,7 +37,7 @@ build() {
   export CGO_LDFLAGS="${LDFLAGS}"
   export GOFLAGS="-buildmode=pie"
   go build -o nezhas cmd/dashboard/main.go
-  go build -o nezhac cmd/agent/main.go
+  go build -ldflags "-X main.version=${pkgver}" -o nezhac cmd/agent/main.go
 }
 
 package_nezhac() {
