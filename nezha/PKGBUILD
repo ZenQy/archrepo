@@ -31,7 +31,7 @@ prepare(){
 
 build() {
   cd "${pkgbase}-${pkgver}"
-  export GOPROXY="https://goproxy.cn,direct"
+  # export GOPROXY="https://goproxy.cn,direct"
   export CGO_CFLAGS="${CFLAGS} -Wno-return-local-addr"
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_LDFLAGS="${LDFLAGS}"
