@@ -2,7 +2,7 @@
 
 pkgbase='nezha'
 pkgname=('nezhac' 'nezhas')
-pkgver=0.1.11
+pkgver=0.1.14
 pkgrel=1
 pkgdesc="便携服务器状态监控面板"
 arch=('x86_64')
@@ -17,7 +17,7 @@ source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
         "nezhac.service"
         "nezhas.service")
 
-sha256sums=('e303c832575713e3bd60688c5659a35306856bc2858270abbd6cb129e77cc1f8'
+sha256sums=('369fb513a7592976cb54192f85d85779e8b9fa5aae06da1e58a8e9867447c245'
             '366317fb940ab89e3122c8753636219dba018128b7b880a83fabff05f33ab363'
             '00d59d5b2183f02b223cb4c985893017983df09bd33eed73487d58fedfcb8132'
             '44981c063c7b868fbd859df9570f56ebbc9f0d0a3e3d3856e2a68486086eb7ac'
