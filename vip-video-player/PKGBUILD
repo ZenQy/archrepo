@@ -5,11 +5,11 @@ arch=(any)
 url="https://github.com/Jiangmenghao/vip-video-player"
 license=('unknown')
 pkgdesc="VIP视频解析-前端页面，解析功能由第三方接口实现"
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
 sha256sums=("b5ecd7783fec676c2bba65e0a486c329eaa81d7b48ee851dd9be9b4756a50b84")
 
 package() {
   mkdir -p "$pkgdir/usr/share/${pkgname}/web/"
-  cp -r "$srcdir/dist/"* \
+  cp -r "$srcdir/"* \
         "$pkgdir/usr/share/${pkgname}/web/"
 }
