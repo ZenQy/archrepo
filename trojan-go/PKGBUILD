@@ -1,0 +1,25 @@
+# Maintainer: ZenQy <zenqy.qin@gmail.com>
+
+pkgname=trojan-go
+pkgver=0.8.2
+pkgrel=1
+pkgdesc="使用Go实现的完整Trojan代理，与Trojan协议以及Trojan版本的配置文件格式兼容"
+arch=('x86_64')
+url="https://github.com/p4gefau1t/trojan-go"
+license=('GPLv3')
+depends=('caddy')
+backup=('etc/trojan-go/config.json')
+
+source=("${pkgname}-${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/${pkgname}-linux-amd64.zip")
+sha256sums=("c55e3ed6019c229043a4d561563f19d2adf3a50118879e9be6a9a0c2421cdf25")
+
+prepare(){
+  cd "${pkgbase}-${pkgver}"
+  sed -i 's/User=nobody/User=caddy/g' example/trojan-go.service
+}
+
+package() {
+  install -Dm 755 "$srcdir/${pkgname}-${pkgver}/trojan-go" "${pkgdir}/usr/bin/trojan-go"
+  install -Dm 644 "$srcdir/${pkgname}-${pkgver}/example/server.json" "${pkgdir}/etc/trojan-go/config.json"
+  install -Dm 644 "$srcdir/${pkgname}-${pkgver}/example/trojan-go.service" "${pkgdir}/usr/lib/systemd/system/trojan-go.service"
+}
