@@ -1,26 +1,23 @@
 pkgname=trojan-web
 pkgver=2.9.7.1
-pkgrel=1
-pkgdesc='trojan多用户管理部署程序, 支持web页面管理'
-arch=('x86_64')
-url='https://github.com/Jrohy/trojan'
-license=('GPL3')
-conflicts=('trojan')
+pkgrel=3
+pkgdesc="trojan多用户管理部署程序, 支持web页面管理"
+arch=("x86_64")
+url="https://github.com/Jrohy/trojan"
+license=("GPL3")
+depends=('glibc')
+conflicts=("trojan")
 
-source=('${url}/releases/download/v${pkgver}/trojan'
+source=("${url}/releases/download/v${pkgver}/trojan"
         trojan.sysusers
         trojan.tmpfiles
         trojan-web.service)
 
-sha256sums('5c897355e4aedd3af3964bfb23508bf62815bac13eff5ca05ea62f10bfc60103'
-           'a4b474bb6beebce37848ea6d265479dc3647b8e3c1ec13e17e3bb1fd9d7348c5'
-           '160294997fd9a1a546e90ac260ba4a810b6de14b6b1b78506c9863fd8465e027'
-           '485915d4dfb97b8c2d6e5cd7db9ac081a9d88aca56ac6ac0a151143f3270d81d')
+sha256sums=("5c897355e4aedd3af3964bfb23508bf62815bac13eff5ca05ea62f10bfc60103"
+           "485915d4dfb97b8c2d6e5cd7db9ac081a9d88aca56ac6ac0a151143f3270d81d")
 
 package() {
-  install -Dm 755 '${srcdir}/trojan' '$pkgdir/usr/bin'
-  install -Dm 644 '${srcdir}/trojan.sysusers' '${pkgdir}/usr/lib/sysusers.d/trojan.conf'
-  install -Dm 644 '${srcdir}/trojan.tmpfiles' '${pkgdir}/usr/lib/tmpfiles.d/trojan.conf'
-  install -Dm 644 '${srcdir}/trojan-web.service' '${pkgdir}/usr/lib/systemd/system'
+  install -Dm 755 "${srcdir}/trojan" -t "$pkgdir/usr/bin"
+  install -Dm 644 "${srcdir}/trojan-web.service" -t "${pkgdir}/usr/lib/systemd/system"
 }
 

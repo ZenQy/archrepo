@@ -5,6 +5,7 @@ pkgdesc="Fast, multi-platform web server with automatic HTTPS"
 arch=('x86_64')
 url="https://caddyserver.com"
 license=('Apache')
+depends=('glibc')
 backup=('etc/caddy/Caddyfile')
 
 source=("https://github.com/caddyserver/caddy/releases/download/v${pkgver}/caddy_${pkgver}_linux_amd64.tar.gz"

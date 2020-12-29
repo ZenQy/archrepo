@@ -1,2 +1,0 @@
-d /var/lib/trojan 0750 trojan trojan
-d /var/log/trojan 0750 trojan trojan

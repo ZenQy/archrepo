@@ -5,8 +5,6 @@ After=network.target mysql.service mariadb.service
 
 [Service]
 Type=simple
-User=trojan
-Group=trojan
 StandardError=journal
 ExecStart=/usr/bin/trojan web
 ExecReload=/bin/kill -HUP \$MAINPID
