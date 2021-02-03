@@ -1,11 +1,10 @@
 pkgname=caddy
-pkgver=2.2.1
-pkgrel=3
+pkgver=2.3.0
+pkgrel=1
 pkgdesc="Fast, multi-platform web server with automatic HTTPS"
 arch=('x86_64')
 url="https://caddyserver.com"
 license=('Apache')
-depends=('glibc')
 backup=('etc/caddy/Caddyfile')
 
 source=("https://github.com/caddyserver/caddy/releases/download/v${pkgver}/caddy_${pkgver}_linux_amd64.tar.gz"
@@ -15,12 +14,13 @@ source=("https://github.com/caddyserver/caddy/releases/download/v${pkgver}/caddy
         caddy.tmpfiles
         index.html)
 
-sha512sums('66a21e0643fd2538ffe88ab93cb4a158b94873c1ce7494543a8355c8a3492d5fa43f4fa030dfc9e9833d15fe04f010063c61cb3f04ad5ac6bcff80396f928a08'
-           'ac016fd33263d424d478a7cbb37b3d321064e88ddad49e88a3cb0f63271c44b2a4aa98b71b1c52510b64c75344481c5057d11d06bd099db96a68ad216df6062b'
-           '0551332327a525d7e96c679ae1e32685767b99e922725e19c0bf3d66211d573bd880626b5508ec8f3a8ebe765edc970f526a50e4b78fad8e510909ef125a1a74'
-           'a9b3e4af421a4be0193d9a452cdf6b66b8f03fbf8bce3de4454a2ee70556c156c458b12a141fefb3e15a2acbb0f3acedc09cbccbecf82aa8916b9b6d799ec066'
-           '41d6b82ab99ca729d5b48d77d4557f3c5368b63847054216018547ea40e0cc302bc36668e9a57ba63e8983205febffee18eae1c306a665365a13da54010cd415'
-           '5cf06f42bfdbd339844b03d615f1cfad244e013415d1fa52c188e7d2cf9f99361059f86c835de96918ec2ea5f7802a200c4150b776d700b60c8804e74a924173')
+sha512sums=(
+  '7112a03bf341a4ccc5332b5ea715de9a68316d2aa2f468bdc263b192448ce412e002acfda68bd0606088b35c5de1f2e93f2aa64ccc065a039f87ee34e0b85b98'
+  'ac016fd33263d424d478a7cbb37b3d321064e88ddad49e88a3cb0f63271c44b2a4aa98b71b1c52510b64c75344481c5057d11d06bd099db96a68ad216df6062b'
+  '0551332327a525d7e96c679ae1e32685767b99e922725e19c0bf3d66211d573bd880626b5508ec8f3a8ebe765edc970f526a50e4b78fad8e510909ef125a1a74'
+  'a9b3e4af421a4be0193d9a452cdf6b66b8f03fbf8bce3de4454a2ee70556c156c458b12a141fefb3e15a2acbb0f3acedc09cbccbecf82aa8916b9b6d799ec066'
+  '41d6b82ab99ca729d5b48d77d4557f3c5368b63847054216018547ea40e0cc302bc36668e9a57ba63e8983205febffee18eae1c306a665365a13da54010cd415'
+  '5cf06f42bfdbd339844b03d615f1cfad244e013415d1fa52c188e7d2cf9f99361059f86c835de96918ec2ea5f7802a200c4150b776d700b60c8804e74a924173')
 
 package() {
   install -Dm 755 caddy "$pkgdir/usr/bin/caddy"
